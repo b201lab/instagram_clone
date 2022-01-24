@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/models/user_list.dart';
 
 class PostContainer extends StatelessWidget {
   final String username;
@@ -79,7 +80,7 @@ class PostContainer extends StatelessWidget {
     );
   }
 
-  Widget buildCaptionField(username) {
+  Widget buildCaptionField() {
     return Text.rich(
       TextSpan(
         text: username + ' ',
@@ -106,7 +107,7 @@ class PostContainer extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 18,
-          backgroundImage: NetworkImage(profileUrl),
+          backgroundImage: NetworkImage(userList[0].profileUrl),
         ),
         const SizedBox(width: 10),
         Expanded(
@@ -150,7 +151,7 @@ class PostContainer extends StatelessWidget {
               const SizedBox(height: 5),
 
               // Caption
-              buildCaptionField(username),
+              buildCaptionField(),
               const SizedBox(height: 5),
 
               buildCommentField(),
