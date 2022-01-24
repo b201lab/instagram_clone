@@ -48,40 +48,39 @@ class Home extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 5),
-        child: Expanded(
-          child: ListView(
-            children: [
-              SizedBox(
-                height: 122,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: userList
-                      .map((user) => StoryIcon(
-                            username: user.name.length > 9
-                                ? user.name.substring(0, 9) + '...'
-                                : user.name,
-                            profileUrl: user.profileUrl,
-                          ))
-                      .toList(),
-                ),
+        padding: const EdgeInsets.only(top: 5, bottom: 10),
+        child: ListView(
+          children: [
+            // Story Container
+            SizedBox(
+              height: 122,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: userList
+                    .map((user) => StoryIcon(
+                          username: user.name.length > 9
+                              ? user.name.substring(0, 9) + '...'
+                              : user.name,
+                          profileUrl: user.profileUrl,
+                        ))
+                    .toList(),
               ),
-              // Garis pembagi story dan posting
-              Container(
-                width: double.infinity,
-                height: 1,
-                color: Colors.grey.withOpacity(0.3),
-              ),
-              for (PostList post in postList)
-                PostContainer(
-                  username: post.user.name,
-                  profileUrl: post.user.profileUrl,
-                  postUrl: post.assetUrl,
-                  caption: post.caption,
-                  createdAt: post.createdAt,
-                )
-            ],
-          ),
+            ),
+            // Garis pembagi story dan posting
+            Container(
+              width: double.infinity,
+              height: 1,
+              color: Colors.grey.withOpacity(0.3),
+            ),
+            for (PostList post in postList)
+              PostContainer(
+                username: post.user.name,
+                profileUrl: post.user.profileUrl,
+                postUrl: post.assetUrl,
+                caption: post.caption,
+                createdAt: post.createdAt,
+              )
+          ],
         ),
       ),
     );

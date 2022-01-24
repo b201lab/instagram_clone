@@ -51,7 +51,7 @@ class PostContainer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
-            children: [
+            children: const [
               Icon(
                 Icons.favorite_outline,
                 size: 30,
@@ -63,12 +63,62 @@ class PostContainer extends StatelessWidget {
               ),
             ],
           ),
-          Icon(
-            Icons.bookmark_border_outlined,
-            size: 30,
-          )
+          const BookmarkIcon()
         ],
       ),
+    );
+  }
+
+  Widget buildLikeView() {
+    return const Text(
+      'Like 0',
+      style: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+      ),
+    );
+  }
+
+  Widget buildCaptionField(username) {
+    return Text.rich(
+      TextSpan(
+        text: username + ' ',
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+        ),
+        children: [
+          TextSpan(
+            text: caption,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildCommentField() {
+    String _comment = '';
+    return Row(
+      children: [
+        CircleAvatar(
+          radius: 18,
+          backgroundImage: NetworkImage(profileUrl),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: TextField(
+            onChanged: (value) => _comment,
+            decoration: const InputDecoration(
+              hintText: 'Tambahkan Komentar...',
+              border: InputBorder.none,
+            ),
+          ),
+        )
+      ],
     );
   }
 
@@ -95,35 +145,52 @@ class PostContainer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               buildActionIcons(),
+
+              buildLikeView(),
+              const SizedBox(height: 5),
+
+              // Caption
+              buildCaptionField(username),
+              const SizedBox(height: 5),
+
+              buildCommentField(),
+              const SizedBox(height: 3),
+
               Text(
-                'Like 0',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                ),
+                '2 hari yang lalu',
+                style: TextStyle(color: Colors.grey[600]),
               ),
-              RichText(
-                text: TextSpan(
-                  text: username,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: caption,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    )
-                  ],
-                ),
-              ),
+              const SizedBox(height: 10),
             ],
           ),
         )
       ],
+    );
+  }
+}
+
+class BookmarkIcon extends StatefulWidget {
+  const BookmarkIcon({Key? key}) : super(key: key);
+
+  @override
+  _BookmarkIconState createState() => _BookmarkIconState();
+}
+
+class _BookmarkIconState extends State<BookmarkIcon> {
+  bool _isActive = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          _isActive = !_isActive;
+        });
+      },
+      child: Icon(
+        _isActive ? Icons.bookmark : Icons.bookmark_border,
+        size: 30,
+      ),
     );
   }
 }
