@@ -13,8 +13,10 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  // Variabel index screen yang dipilih
   int _selectedIndex = 0;
 
+  // List screen widget yang akan ditampilkan
   static const List<Widget> _navigationOptions = [
     Home(),
     Search(),
@@ -23,16 +25,17 @@ class _DashboardState extends State<Dashboard> {
     Profile()
   ];
 
+  // Fungsi untuk mengubah index screen yang dipilih
   void _onNavTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _navigationOptions.elementAt(_selectedIndex),
+      body: _navigationOptions.elementAt(_selectedIndex), // Merender widget berdasarkan nilai _selectedIndex
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           border: Border(
@@ -73,14 +76,13 @@ class _DashboardState extends State<Dashboard> {
           ],
           currentIndex: _selectedIndex,
           onTap: _onNavTapped,
-          // Styling Navbar Item
+          // Memberikan style Navbar Item
           type: BottomNavigationBarType.fixed,
           iconSize: 32,
           unselectedItemColor: Colors.black,
           selectedItemColor: Colors.black,
           showSelectedLabels: false,
-          showUnselectedLabels: false,
-          elevation: 0,
+          showUnselectedLabels: false
         ),
       ),
     );
